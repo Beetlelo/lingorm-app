@@ -34,21 +34,21 @@ export const folders = [
 // Two photos are seeded on 07.21 of past years so the "去年今日" feature has
 // content to show on July 21 (today). Replace with real upload dates over time.
 export const initialPhotos: Photo[] = [
-  { id: 1, title: '深圳湾演唱会', date: '2024.07.21', tag: '活动', src: '/demo/weibo/weibo-01.jpg', people: ['Lingling', 'Orm'], event: '深圳湾演唱会 2024', place: '深圳' },
-  { id: 2, title: '返场安可', date: '2026.07.18', tag: '活动', src: '/demo/weibo/weibo-02.jpg', people: ['Lingling', 'Orm'], event: '2026 巡演·深圳', place: '深圳' },
-  { id: 3, title: '签售现场', date: '2026.07.17', tag: '活动', src: '/demo/weibo/weibo-03.jpg', people: ['Lingling', 'Orm'], event: '签售会 2026', place: '北京' },
-  { id: 4, title: '应援海洋', date: '2026.07.16', tag: '活动', src: '/demo/weibo/weibo-04.jpg', people: ['Lingling', 'Orm'], place: '深圳' },
-  { id: 5, title: '甜蜜同框', date: '2026.07.15', tag: '亲亲', src: '/demo/weibo/weibo-05.jpg', people: ['Lingling', 'Orm'], place: '曼谷' },
-  { id: 6, title: '后台比心', date: '2026.07.14', tag: '亲亲', src: '/demo/weibo/weibo-06.jpg', people: ['Lingling', 'Orm'] },
-  { id: 7, title: '对视瞬间', date: '2025.07.21', tag: '亲亲', src: '/demo/weibo/weibo-07.jpg', people: ['Lingling', 'Orm'], event: '曼谷粉丝见面会', place: '曼谷' },
-  { id: 8, title: '机场抱抱', date: '2026.07.12', tag: '抱抱', src: '/demo/weibo/weibo-08.jpg', people: ['Lingling', 'Orm'] },
-  { id: 9, title: '庆功拥抱', date: '2026.07.11', tag: '抱抱', src: '/demo/weibo/weibo-09.jpg', people: ['Lingling', 'Orm'] },
-  { id: 10, title: '温暖相拥', date: '2026.07.10', tag: '抱抱', src: '/demo/weibo/weibo-10.jpg', people: ['Lingling', 'Orm'] },
-  { id: 11, title: '珍藏票根', date: '2026.07.09', tag: '收藏', src: '/demo/weibo/weibo-11.jpg', place: '曼谷' },
-  { id: 12, title: '纪念合照', date: '2026.07.08', tag: '收藏', src: '/demo/weibo/weibo-12.jpg', place: '曼谷' },
-  { id: 13, title: '同框花絮', date: '2026.07.07', tag: '合照', src: '/demo/weibo/weibo-13.jpg', people: ['Lingling', 'Orm'], event: '见面会' },
-  { id: 14, title: '蹦迪现场', date: '2026.07.06', tag: '合照', src: '/demo/weibo/weibo-14.jpg', place: '上海' },
-  { id: 15, title: '比心合集', date: '2026.07.05', tag: '合照', src: '/demo/weibo/weibo-15.jpg', people: ['Lingling', 'Orm'] },
+  { id: 1, title: '深圳湾演唱会', date: '2024.07.21', tag: '活动', src: import.meta.env.BASE_URL + 'demo/weibo/weibo-01.jpg', people: ['Lingling', 'Orm'], event: '深圳湾演唱会 2024', place: '深圳' },
+  { id: 2, title: '返场安可', date: '2026.07.18', tag: '活动', src: import.meta.env.BASE_URL + 'demo/weibo/weibo-02.jpg', people: ['Lingling', 'Orm'], event: '2026 巡演·深圳', place: '深圳' },
+  { id: 3, title: '签售现场', date: '2026.07.17', tag: '活动', src: import.meta.env.BASE_URL + 'demo/weibo/weibo-03.jpg', people: ['Lingling', 'Orm'], event: '签售会 2026', place: '北京' },
+  { id: 4, title: '应援海洋', date: '2026.07.16', tag: '活动', src: import.meta.env.BASE_URL + 'demo/weibo/weibo-04.jpg', people: ['Lingling', 'Orm'], place: '深圳' },
+  { id: 5, title: '甜蜜同框', date: '2026.07.15', tag: '亲亲', src: import.meta.env.BASE_URL + 'demo/weibo/weibo-05.jpg', people: ['Lingling', 'Orm'], place: '曼谷' },
+  { id: 6, title: '后台比心', date: '2026.07.14', tag: '亲亲', src: import.meta.env.BASE_URL + 'demo/weibo/weibo-06.jpg', people: ['Lingling', 'Orm'] },
+  { id: 7, title: '对视瞬间', date: '2025.07.21', tag: '亲亲', src: import.meta.env.BASE_URL + 'demo/weibo/weibo-07.jpg', people: ['Lingling', 'Orm'], event: '曼谷粉丝见面会', place: '曼谷' },
+  { id: 8, title: '机场抱抱', date: '2026.07.12', tag: '抱抱', src: import.meta.env.BASE_URL + 'demo/weibo/weibo-08.jpg', people: ['Lingling', 'Orm'] },
+  { id: 9, title: '庆功拥抱', date: '2026.07.11', tag: '抱抱', src: import.meta.env.BASE_URL + 'demo/weibo/weibo-09.jpg', people: ['Lingling', 'Orm'] },
+  { id: 10, title: '温暖相拥', date: '2026.07.10', tag: '抱抱', src: import.meta.env.BASE_URL + 'demo/weibo/weibo-10.jpg', people: ['Lingling', 'Orm'] },
+  { id: 11, title: '珍藏票根', date: '2026.07.09', tag: '收藏', src: import.meta.env.BASE_URL + 'demo/weibo/weibo-11.jpg', place: '曼谷' },
+  { id: 12, title: '纪念合照', date: '2026.07.08', tag: '收藏', src: import.meta.env.BASE_URL + 'demo/weibo/weibo-12.jpg', place: '曼谷' },
+  { id: 13, title: '同框花絮', date: '2026.07.07', tag: '合照', src: import.meta.env.BASE_URL + 'demo/weibo/weibo-13.jpg', people: ['Lingling', 'Orm'], event: '见面会' },
+  { id: 14, title: '蹦迪现场', date: '2026.07.06', tag: '合照', src: import.meta.env.BASE_URL + 'demo/weibo/weibo-14.jpg', place: '上海' },
+  { id: 15, title: '比心合集', date: '2026.07.05', tag: '合照', src: import.meta.env.BASE_URL + 'demo/weibo/weibo-15.jpg', people: ['Lingling', 'Orm'] },
 ]
 
 // User uploads are persisted to localStorage and layered on top of the demo set.

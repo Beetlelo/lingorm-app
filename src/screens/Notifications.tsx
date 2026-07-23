@@ -34,8 +34,8 @@ export default function Notifications() {
     if (!('Notification' in window) || Notification.permission !== 'granted') return
     new Notification('Lingorm 星球', {
       body: 'Dara Daily 娱乐访谈 还有 15 分钟开始！',
-      icon: '/background.jpg',
-      badge: '/background.jpg',
+      icon: `${import.meta.env.BASE_URL}background.jpg`,
+      badge: `${import.meta.env.BASE_URL}background.jpg`,
     })
   }
 

@@ -1,6 +1,8 @@
 import { useEffect, useState } from 'react'
 import { getBackground, onBackgroundChange } from '../lib/background'
 
+const fallbackBg = `${import.meta.env.BASE_URL}background.jpg`
+
 export default function Background() {
   const [bg, setBg] = useState<string | null>(null)
 
@@ -14,7 +16,7 @@ export default function Background() {
       <div
         className="app-bg"
         aria-hidden="true"
-        style={bg ? { backgroundImage: `url(${bg})` } : undefined}
+        style={{ backgroundImage: `url(${bg || fallbackBg})` }}
       />
       <div className="app-bg-overlay" aria-hidden="true" />
     </>
