@@ -17,15 +17,14 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      VITE_GOOGLE_CLIENT_ID: ${{ secrets.VITE_GOOGLE_CLIENT_ID }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: 22
       - run: npm ci
-        # VITE_GOOGLE_CLIENT_ID 在仓库 Settings > Secrets 中配置
-        env:
-          VITE_GOOGLE_CLIENT_ID: ${{ secrets.VITE_GOOGLE_CLIENT_ID }}
       - name: Build (自动按仓库名设置 base 路径)
         run: npm run build -- --base "/${{ github.event.repository.name }}/"
       - uses: actions/upload-pages-artifact@v3

@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { fileToDataURL } from '../lib/image'
+import { fileToDataURL, fileToJpegBlob } from '../lib/image'
+import { isQiniuEnabled, uploadToQiniu } from '../lib/storage'
 
 type PendingFile = {
   file: File
@@ -21,6 +22,7 @@ export default function AddPhoto() {
   const [items, setItems] = useState<PendingFile[]>([])
   const [saved, setSaved] = useState(false)
   const [saveError, setSaveError] = useState('')
+  const [uploading, setUploading] = useState(false)
   const [showMore, setShowMore] = useState(false)
 
   const handleFiles = async (selected: FileList | null) => {
@@ -60,34 +62,51 @@ export default function AddPhoto() {
     setItems((prev) => prev.filter((_, i) => i !== idx))
   }
 
-  const save = () => {
+  const save = async () => {
     if (items.length === 0) return
-    const newPhotos = items.map((it, i) => {
-      const people = it.people
-        .split(/[、,，\s]+/)
-        .map((s) => s.trim())
-        .filter(Boolean)
-      return {
-        id: Date.now() + i,
-        title: '',
-        date: new Date().toLocaleDateString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '.'),
-        tag: it.tag === '全部' ? '收藏' : it.tag,
-        dataUrl: it.dataUrl,
-        h: 160 + Math.floor(Math.random() * 60),
-        people: people.length ? people : undefined,
-        event: it.event.trim() || undefined,
-        place: it.place.trim() || undefined,
-      }
-    })
+    setUploading(true)
+    setSaveError('')
     try {
+      const newPhotos = await Promise.all(
+        items.map(async (it, i) => {
+          const people = it.people
+            .split(/[、,，\s]+/)
+            .map((s) => s.trim())
+            .filter(Boolean)
+          // 配置了七牛云则直传拿 CDN URL；失败回退本地 base64，保证不丢图
+          let src: string | undefined = it.dataUrl
+          if (isQiniuEnabled()) {
+            try {
+              const blob = await fileToJpegBlob(it.file)
+              const res = await uploadToQiniu(blob)
+              src = res.url
+            } catch (e) {
+              console.warn('七牛上传失败，回退本地存储', e)
+              src = it.dataUrl
+            }
+          }
+          return {
+            id: Date.now() + i,
+            title: '',
+            date: new Date().toLocaleDateString('zh-CN', { year: 'numeric', month: '2-digit', day: '2-digit' }).replace(/\//g, '.'),
+            tag: it.tag === '全部' ? '收藏' : it.tag,
+            src,
+            h: 160 + Math.floor(Math.random() * 60),
+            people: people.length ? people : undefined,
+            event: it.event.trim() || undefined,
+            place: it.place.trim() || undefined,
+          }
+        }),
+      )
       const existing = JSON.parse(localStorage.getItem(LS_KEY) || '[]')
       localStorage.setItem(LS_KEY, JSON.stringify([...newPhotos, ...existing]))
+      setUploading(false)
+      setSaved(true)
+      setTimeout(() => nav('/album'), 800)
     } catch {
-      setSaveError('保存失败：本地存储空间不足，请删除部分旧照片后再试')
-      return
+      setUploading(false)
+      setSaveError('保存失败，请检查网络后重试')
     }
-    setSaved(true)
-    setTimeout(() => nav('/album'), 800)
   }
 
   return (
@@ -216,10 +235,10 @@ export default function AddPhoto() {
             <button
               type="button"
               onClick={save}
-              disabled={items.length === 0}
+              disabled={items.length === 0 || uploading}
               className="py-3 rounded-[16px] text-accent font-medium text-[14px] active:scale-95 transition glass disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              保存到相册
+              {uploading ? '上传中…' : '保存到相册'}
             </button>
           </div>
         </>
