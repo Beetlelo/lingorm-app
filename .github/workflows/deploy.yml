@@ -28,7 +28,6 @@ jobs:
           VITE_GOOGLE_CLIENT_ID: ${{ secrets.VITE_GOOGLE_CLIENT_ID }}
       - name: Build (自动按仓库名设置 base 路径)
         run: npm run build -- --base "/${{ github.event.repository.name }}/"
-      - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
           path: dist
